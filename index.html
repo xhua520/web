@@ -1,0 +1,359 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>Welcome to xianghua.net.cn</title>
+    <meta name="keywords" content="xianghua.net.cn">
+    <meta name="description" content="xianghua.net.cn">
+    <link rel="shortcut icon" href="https://pan.xianghua.net.cn/api/raw/?path=web/xianghua.net.cn/favicon.ico">
+    
+    <!-- 外部资源引入 -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdn.jsdelivr.net/npm/font-awesome@4.7.0/css/font-awesome.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://xianghuanetcn.oss-cn-shenzhen.aliyuncs.com/web/xianghua.net.cn/aplayer/APlayer.min.css">
+    <script src="https://xianghuanetcn.oss-cn-shenzhen.aliyuncs.com/web/xianghua.net.cn/aplayer/APlayer.min.js"></script>
+    <script src="https://xianghuanetcn.oss-cn-shenzhen.aliyuncs.com/web/xianghua.net.cn/aplayer/Meting.min.js"></script>
+    <link rel="stylesheet" href="https://xianghuanetcn.oss-cn-shenzhen.aliyuncs.com/web/xianghua.net.cn/glightbox.min.css">
+    
+    <!-- Tailwind 配置 -->
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: '#00c250',
+                        secondary: '#6c757d',
+                        light: '#f8f9fa',
+                        dark: '#343a40',
+                        bgStart: '#e0f7fa',
+                        bgEnd: '#b2ebf2'
+                    },
+                    fontFamily: {
+                        sans: ['-apple-system', 'BlinkMacSystemFont', 'Helvetica Neue', 'PingFang SC', 'Microsoft YaHei', 'sans-serif']
+                    },
+                    animation: {
+                        'float': 'float 6s ease-in-out infinite',
+                        'pulse-slow': 'pulse 4s cubic-bezier(0.4, 0, 0.6, 1) infinite',
+                        'fade-in': 'fadeIn 0.8s ease-out forwards',
+                        'slide-up': 'slideUp 0.6s ease-out forwards',
+                        'slide-in': 'slideIn 0.7s ease-out forwards'
+                    },
+                    keyframes: {
+                        float: {
+                            '0%, 100%': { transform: 'translateY(0)' },
+                            '50%': { transform: 'translateY(-10px)' }
+                        },
+                        fadeIn: {
+                            '0%': { opacity: '0' },
+                            '100%': { opacity: '1' }
+                        },
+                        slideUp: {
+                            '0%': { transform: 'translateY(20px)', opacity: '0' },
+                            '100%': { transform: 'translateY(0)', opacity: '1' }
+                        },
+                        slideIn: {
+                            '0%': { transform: 'translateX(-20px)', opacity: '0' },
+                            '100%': { transform: 'translateX(0)', opacity: '1' }
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    
+    <style type="text/tailwindcss">
+        @layer utilities {
+            .content-auto {
+                content-visibility: auto;
+            }
+            .card-hover {
+                @apply transition-all duration-300 hover:shadow-xl hover:scale-105 hover:bg-white/90;
+            }
+            .fixed-width {
+                width: 980px;
+                margin-left: auto;
+                margin-right: auto;
+            }
+            @media (max-width: 980px) {
+                .fixed-width {
+                    width: 100%;
+                    padding-left: 15px;
+                    padding-right: 15px;
+                }
+            }
+            .bg-pattern {
+                background-image: 
+                    radial-gradient(rgba(0, 194, 80, 0.1) 2px, transparent 2px),
+                    radial-gradient(rgba(0, 194, 80, 0.1) 2px, transparent 2px);
+                background-size: 40px 40px;
+                background-position: 0 0, 20px 20px;
+            }
+            .scroll-reveal {
+                opacity: 0;
+                transform: translateY(20px);
+                transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+            }
+            .scroll-reveal.active {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+.bg-gradient {
+ margin: 0;
+            padding: 0;
+            background: url(https://xianghuanetcn.oss-cn-shenzhen.aliyuncs.com/web/xianghua.net.cn/bg.jpg) no-repeat center;
+            background-size: cover;
+            background-attachment:fixed;
+  }
+    </style>
+</head>
+
+<body class="bg-gradient">
+    <!-- 装饰元素 -->
+    <div class="fixed top-0 left-0 w-full h-full overflow-hidden pointer-events-none z-0">
+        <div class="absolute -top-20 -left-20 w-64 h-64 bg-primary/5 rounded-full blur-3xl animate-pulse-slow"></div>
+        <div class="absolute top-1/3 -right-32 w-80 h-80 bg-primary/5 rounded-full blur-3xl animate-pulse-slow" style="animation-delay: 1s"></div>
+        <div class="absolute bottom-0 left-1/4 w-72 h-72 bg-primary/5 rounded-full blur-3xl animate-pulse-slow" style="animation-delay: 2s"></div>
+    </div>
+
+    <div class="min-h-screen flex flex-col relative z-10">
+        <!-- 页面头部 -->
+        <header class="w-full py-8 animate-fade-in">
+            <div class="fixed-width">
+                <div class="flex flex-col items-center">
+                    <div class="brand flex items-center mb-6 animate-float">
+                        <img src="https://xianghuanetcn.oss-cn-shenzhen.aliyuncs.com/web/xianghua.net.cn/895.jpg" 
+                             alt="Logo" 
+                             class="w-36 h-36 md:w-44 md:h-44 rounded-full object-cover shadow-lg border-4 border-white/80">
+                    </div>
+                    
+                </div>
+            </div>
+        </header>
+
+        <!-- 主要内容 -->
+        <main class="flex-grow py-6">
+            <!-- 视频展示区 -->
+            <section class="mb-10 scroll-reveal">
+                <div class="fixed-width">
+                    <div class="bg-white rounded-2xl shadow-xl overflow-hidden transform transition-all duration-500 hover:shadow-2xl hover:scale-[1.01]">
+                        <div class="aspect-video w-full">
+                            <video id="main-video" 
+                                   class="w-full h-full object-cover"
+                                   autoplay muted loop playsinline>
+                                <source src="https://consumer.huawei.com/content/dam/huawei-cbg-site/cn/mkt/pdp/phones/pura80-pro-plus/video/system/system-ai-theme-popup.mp4" 
+                                        type="video/mp4">
+                                您的浏览器不支持HTML5视频播放。
+                            </video>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- 建设提示与服务区 -->
+            <section class="mb-10 scroll-reveal">
+                <div class="fixed-width">
+                    <div class="bg-white/90 backdrop-blur-sm rounded-xl shadow-md p-6 text-center border border-white/50 transform transition-all duration-300 hover:shadow-lg">
+                        <h2 class="text-2xl font-bold text-primary mb-6 flex items-center justify-center animate-pulse">
+                            <span class="mr-2">✈</span> 正在建设 <span class="ml-2">✈</span>
+                        </h2>
+                        <h3 class="text-xl font-semibold text-dark mb-8">可使用以下服务</h3>
+                        
+                        <!-- 服务卡片网格 -->
+                        <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
+                            <!-- 博客 -->
+                            <a href="https://blog.xianghua.net.cn" target="_blank" 
+                               class="service-card bg-white/95 backdrop-blur-sm rounded-xl p-6 shadow-md flex flex-col items-center justify-center card-hover border border-gray-100">
+                                <i class="fa fa-pencil-square-o text-3xl text-primary mb-3 transform transition-transform duration-300 hover:rotate-12 hover:text-primary/80"></i>
+                                <h3 class="font-semibold text-dark">博客</h3>
+                                <p class="text-sm mt-2">分享技术与生活的点滴</p>
+                            </a>
+                            
+                            <!-- 网盘 -->
+                            <a href="https://pan.xianghua.net.cn" target="_blank" 
+                               class="service-card bg-white/95 backdrop-blur-sm rounded-xl p-6 shadow-md flex flex-col items-center justify-center card-hover border border-gray-100">
+                                <i class="fa fa-cloud text-3xl text-primary mb-3 transform transition-transform duration-300 hover:scale-110 hover:text-primary/80"></i>
+                                <h3 class="font-semibold text-dark">网盘</h3>
+                                <p class="text-sm mt-2">安全便捷的文件存储</p>
+                            </a>
+                            
+                            <!-- 白板 -->
+                            <a href="https://baiban.xianghua.net.cn" target="_blank" 
+                               class="service-card bg-white/95 backdrop-blur-sm rounded-xl p-6 shadow-md flex flex-col items-center justify-center card-hover border border-gray-100">
+                                <i class="fa fa-paint-brush text-3xl text-primary mb-3 transform transition-transform duration-300 hover:rotate-[-12deg] hover:text-primary/80"></i>
+                                <h3 class="font-semibold text-dark">白板</h3>
+                                <p class="text-sm mt-2">自由创作与协作的空间</p>
+                            </a>
+                            
+                            <!-- 游戏 -->
+                            <a href="https://tetris.xianghua.net.cn" target="_blank" 
+                               class="service-card bg-white/95 backdrop-blur-sm rounded-xl p-6 shadow-md flex flex-col items-center justify-center card-hover border border-gray-100">
+                                <i class="fa fa-gamepad text-3xl text-primary mb-3 transform transition-transform duration-300 hover:scale-110 hover:text-primary/80"></i>
+                                <h3 class="font-semibold text-dark">游戏</h3>
+                                <p class="text-sm mt-2">休闲娱乐，放松心情</p>
+                            </a>
+                            
+                            <!-- 便捷水印 -->
+                            <a href="https://sy.xianghua.net.cn" target="_blank" 
+                               class="service-card bg-white/95 backdrop-blur-sm rounded-xl p-6 shadow-md flex flex-col items-center justify-center card-hover border border-gray-100">
+                                <i class="fa fa-certificate text-3xl text-primary mb-3 transform transition-transform duration-300 hover:rotate-12 hover:text-primary/80"></i>
+                                <h3 class="font-semibold text-dark">便捷水印</h3>
+                                <p class="text-sm mt-2">快速添加专业水印</p>
+                            </a>
+                            
+                            <!-- 制作头像 -->
+                            <a href="https://avatar.xianghua.net.cn" target="_blank" 
+                               class="service-card bg-white/95 backdrop-blur-sm rounded-xl p-6 shadow-md flex flex-col items-center justify-center card-hover border border-gray-100">
+                                <i class="fa fa-user text-3xl text-primary mb-3 transform transition-transform duration-300 hover:scale-110 hover:text-primary/80"></i>
+                                <h3 class="font-semibold text-dark">制作头像</h3>
+                                <p class="text-sm mt-2">创建个性化头像</p>
+                            </a>
+                            
+                            <!-- 菜谱 -->
+                            <a href="https://cook.xianghua.net.cn" target="_blank" 
+                               class="service-card bg-white/95 backdrop-blur-sm rounded-xl p-6 shadow-md flex flex-col items-center justify-center card-hover border border-gray-100">
+                                <i class="fa fa-cutlery text-3xl text-primary mb-3 transform transition-transform duration-300 hover:rotate-[-12deg] hover:text-primary/80"></i>
+                                <h3 class="font-semibold text-dark">菜谱</h3>
+                                <p class="text-sm mt-2">探索美食制作的乐趣</p>
+                            </a>
+                            
+                            <!-- 邮箱 -->
+                            <a href="https://mail.xianghua.net.cn" target="_blank" 
+                               class="service-card bg-white/95 backdrop-blur-sm rounded-xl p-6 shadow-md flex flex-col items-center justify-center card-hover border border-gray-100">
+                                <i class="fa fa-envelope-o text-3xl text-primary mb-3 transform transition-transform duration-300 hover:scale-110 hover:text-primary/80"></i>
+                                <h3 class="font-semibold text-dark">邮箱</h3>
+                                <p class="text-sm mt-2">高效的邮件沟通工具</p>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- 音乐播放区 -->
+            <section class="mb-10">
+                <div class="fixed-width space-y-6">
+                    <!-- 新歌榜 -->
+                    <div class="bg-white/90 backdrop-blur-sm rounded-xl shadow-md p-6 border border-white/50 transform transition-all duration-300 hover:shadow-lg scroll-reveal">
+                        <h3 class="text-xl font-semibold text-dark mb-4 flex items-center">
+                            <span class="mr-2 text-primary animate-pulse">🎶</span> 影 音 试 听（新歌榜）
+                        </h3>
+                        <div class="w-full">
+                            <meting-js server="netease" type="playlist" id="3779629"></meting-js>
+                        </div>
+                    </div>
+                    
+                    <!-- 飙升榜 -->
+                    <div class="bg-white/90 backdrop-blur-sm rounded-xl shadow-md p-6 border border-white/50 transform transition-all duration-300 hover:shadow-lg scroll-reveal" style="animation-delay: 0.2s">
+                        <h3 class="text-xl font-semibold text-dark mb-4 flex items-center">
+                            <span class="mr-2 text-primary animate-pulse">🎶</span> 影 音 试 听（飙升榜）
+                        </h3>
+                        <div class="w-full">
+                            <meting-js server="netease" type="playlist" id="19723756"></meting-js>
+                        </div>
+                    </div>
+                    
+                    <!-- 热歌榜 -->
+                    <div class="bg-white/90 backdrop-blur-sm rounded-xl shadow-md p-6 border border-white/50 transform transition-all duration-300 hover:shadow-lg scroll-reveal" style="animation-delay: 0.4s">
+                        <h3 class="text-xl font-semibold text-dark mb-4 flex items-center">
+                            <span class="mr-2 text-primary animate-pulse">🎶</span> 影 音 试 听（热歌榜）
+                        </h3>
+                        <div class="w-full">
+                            <meting-js server="netease" type="playlist" id="3778678"></meting-js>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- 温馨提示 -->
+            <section class="mb-10 scroll-reveal">
+                <div class="fixed-width">
+                    <div class="bg-white/90 backdrop-blur-sm rounded-xl shadow-md p-6 border border-white/50 transform transition-all duration-300 hover:shadow-lg">
+                        <h3 class="text-xl font-semibold text-dark mb-4 flex items-center">
+                            <span class="mr-2 text-primary">👉</span> 溫 馨 提 示
+                        </h3>
+                        <ul class="space-y-3">
+                            <li class="transform transition-all duration-200 hover:translate-x-1">* 推荐使用微软(Edge)浏览器访问本站，Edge速度更快，iPhone建议使用手机自带Safria浏览器访问。</li>
+                            <li class="transform transition-all duration-200 hover:translate-x-1">* 如果您记不住本站域名，请收藏该页地址，收藏并分享给好朋友。</li>
+                            <li class="text-sm text-dark transform transition-all duration-200 hover:translate-x-1">1、使用电脑的用户，请按键盘上的CTRL+D进行收藏</li>
+                            <li class="text-sm text-dark transform transition-all duration-200 hover:translate-x-1">2、苹果手机用户在浏览器点击<i class="fa fa-share-alt text-primary"></i>，然后添加到个人收藏或主屏幕。</li>
+                            <li class="text-sm text-dark transform transition-all duration-200 hover:translate-x-1">3、安卓手机用户点击<i class="fa fa-android text-primary"></i>，或者打开浏览器设置，添加到书签或主屏幕。</li>
+                        </ul>
+                    </div>
+                </div>
+            </section>
+
+            <!-- 联系与反馈 -->
+            <section class="mb-10">
+                <div class="fixed-width">
+                    <!-- 联系信息 -->
+                    <div class="bg-white/90 backdrop-blur-sm rounded-xl shadow-md p-6 mb-6 border border-white/50 transform transition-all duration-300 hover:shadow-lg scroll-reveal">
+                        <h3 class="text-xl font-semibold text-dark mb-4 flex items-center">
+                            <span class="mr-2 text-primary">📧</span> 联 系
+                        </h3>
+                        <ul class="text-center">
+                            <li class="mb-2 transform transition-all duration-300 hover:scale-105">邮箱：<a href="mailto:xh@xianghua.net.cn" class="text-primary hover:underline">xh@xianghua.net.cn</a></li>
+                        </ul>
+                    </div>
+                    
+                    <!-- 反馈区 -->
+                    <div class="bg-white/90 backdrop-blur-sm rounded-xl shadow-md p-6 border border-white/50 transform transition-all duration-300 hover:shadow-lg scroll-reveal" style="animation-delay: 0.2s">
+                        <h3 class="text-xl font-semibold text-dark mb-4 flex items-center">
+                            <span class="mr-2 text-primary">✏️</span> 反 馈
+                        </h3>
+                        <div id="tcomment" class="w-full"></div>
+                    </div>
+                </div>
+            </section>
+        </main>
+
+        <!-- 页脚 -->
+        <footer class="bg-dark/90 text-white py-6 backdrop-blur-sm scroll-reveal">
+            <div class="fixed-width text-center">
+                <p>&copy; 2012-Present xianghua.net.cn</p>
+            </div>
+        </footer>
+    </div>
+
+    <!-- 滚动动画脚本 -->
+    <script>
+        // 监听滚动，为进入视口的元素添加动画
+        document.addEventListener('DOMContentLoaded', function() {
+            const observerOptions = {
+                root: null,
+                rootMargin: '0px',
+                threshold: 0.1
+            };
+
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('active');
+                        observer.unobserve(entry.target);
+                    }
+                });
+            }, observerOptions);
+
+            // 监听所有带scroll-reveal类的元素
+            document.querySelectorAll('.scroll-reveal').forEach(el => {
+                observer.observe(el);
+            });
+        });
+    </script>
+
+    <!-- 外部脚本 -->
+    <script src="https://xianghuanetcn.oss-cn-shenzhen.aliyuncs.com/web/xianghua.net.cn/glightbox.min.js"></script>
+    <script src="https://xianghuanetcn.oss-cn-shenzhen.aliyuncs.com/web/xianghua.net.cn/main.js"></script>
+    <script src="https://xianghuanetcn.oss-cn-shenzhen.aliyuncs.com/web/twikoo.xianghua.net.cn/twikoo.all.min.js"></script>
+    
+    <!-- 评论区初始化 -->
+    <script>
+        twikoo.init({
+            envId: 'https://twikoo.xianghua.net.cn/',
+            el: '#tcomment',
+            path: location.pathname
+        });
+    </script>
+</body>
+</html>
