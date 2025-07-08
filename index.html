@@ -1,21 +1,19 @@
-<!DOCTYPE html>
 <html lang="zh-CN">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
     <title>Welcome to xianghua.net.cn</title>
-    <meta name="keywords" content="xianghua.net.cn">
-    <meta name="description" content="xianghua.net.cn">
+    <meta name="keywords" content="xianghua.net.cn, 博客, 网盘, 工具, 服务">
+    <meta name="description" content="xianghua.net.cn - 提供博客、网盘、水印工具等多样化服务平台，持续建设中...">
     <link rel="shortcut icon" href="https://pan.xianghua.net.cn/api/raw/?path=web/xianghua.net.cn/favicon.ico">
     
     <!-- 外部资源引入 -->
     <script src="https://cdn.tailwindcss.com"></script>
-    <link href="https://cdn.jsdelivr.net/npm/font-awesome@4.7.0/css/font-awesome.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/font-awesome@4.7.0/css/font-awesome.min.css">
     <link rel="stylesheet" href="https://xianghuanetcn.oss-cn-shenzhen.aliyuncs.com/web/xianghua.net.cn/aplayer/APlayer.min.css">
     <script src="https://xianghuanetcn.oss-cn-shenzhen.aliyuncs.com/web/xianghua.net.cn/aplayer/APlayer.min.js"></script>
     <script src="https://xianghuanetcn.oss-cn-shenzhen.aliyuncs.com/web/xianghua.net.cn/aplayer/Meting.min.js"></script>
-    <link rel="stylesheet" href="https://xianghuanetcn.oss-cn-shenzhen.aliyuncs.com/web/xianghua.net.cn/glightbox.min.css">
     
     <!-- Tailwind 配置 -->
     <script>
@@ -24,6 +22,8 @@
                 extend: {
                     colors: {
                         primary: '#00c250',
+                        primaryLight: '#33d170',
+                        primaryDark: '#00a844',
                         secondary: '#6c757d',
                         light: '#f8f9fa',
                         dark: '#343a40',
@@ -38,7 +38,9 @@
                         'pulse-slow': 'pulse 4s cubic-bezier(0.4, 0, 0.6, 1) infinite',
                         'fade-in': 'fadeIn 0.8s ease-out forwards',
                         'slide-up': 'slideUp 0.6s ease-out forwards',
-                        'slide-in': 'slideIn 0.7s ease-out forwards'
+                        'slide-in': 'slideIn 0.7s ease-out forwards',
+                        'bounce-subtle': 'bounceSubtle 2s ease-in-out infinite',
+                        'shine': 'shine 1.5s ease-out infinite'
                     },
                     keyframes: {
                         float: {
@@ -56,6 +58,15 @@
                         slideIn: {
                             '0%': { transform: 'translateX(-20px)', opacity: '0' },
                             '100%': { transform: 'translateX(0)', opacity: '1' }
+                        },
+                        bounceSubtle: {
+                            '0%, 100%': { transform: 'translateY(-2px)' },
+                            '50%': { transform: 'translateY(2px)' }
+                        },
+                        shine: {
+                            '0%': { boxShadow: '0 0 0 0 rgba(0, 194, 80, 0.4)' },
+                            '70%': { boxShadow: '0 0 0 10px rgba(0, 194, 80, 0)' },
+                            '100%': { boxShadow: '0 0 0 0 rgba(0, 194, 80, 0)' }
                         }
                     }
                 }
@@ -99,18 +110,43 @@
                 opacity: 1;
                 transform: translateY(0);
             }
+            .text-shadow {
+                text-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            }
+            .video-overlay {
+                background: linear-gradient(to top, rgba(0,0,0,0.2) 0%, transparent 100%);
+            }
+            .link-underline {
+                @apply relative after:absolute after:bottom-0 after:left-0 after:h-[2px] after:w-0 after:bg-primary after:transition-all after:duration-300 hover:after:w-full;
+            }
         }
-.bg-gradient {
- margin: 0;
+        .bg-gradient {
+            margin: 0;
             padding: 0;
             background: url(https://xianghuanetcn.oss-cn-shenzhen.aliyuncs.com/web/xianghua.net.cn/bg.jpg) no-repeat center;
             background-size: cover;
-            background-attachment:fixed;
-  }
+            background-attachment: fixed;
+        }
+        /* 自定义滚动条 */
+        ::-webkit-scrollbar {
+            width: 8px;
+            height: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: rgba(255,255,255,0.1);
+            border-radius: 4px;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: rgba(0, 194, 80, 0.5);
+            border-radius: 4px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: rgba(0, 194, 80, 0.8);
+        }
     </style>
 </head>
 
-<body class="bg-gradient">
+<body class="bg-gradient text-dark antialiased">
     <!-- 装饰元素 -->
     <div class="fixed top-0 left-0 w-full h-full overflow-hidden pointer-events-none z-0">
         <div class="absolute -top-20 -left-20 w-64 h-64 bg-primary/5 rounded-full blur-3xl animate-pulse-slow"></div>
@@ -126,9 +162,14 @@
                     <div class="brand flex items-center mb-6 animate-float">
                         <img src="https://xianghuanetcn.oss-cn-shenzhen.aliyuncs.com/web/xianghua.net.cn/895.jpg" 
                              alt="Logo" 
-                             class="w-36 h-36 md:w-44 md:h-44 rounded-full object-cover shadow-lg border-4 border-white/80">
+                             class="w-36 h-36 md:w-44 md:h-44 rounded-full object-cover shadow-lg border-4 border-white/80 transform transition-all duration-500 hover:border-primary hover:shadow-primary/20">
                     </div>
-                    
+                    <h1 class="text-[clamp(1.8rem,5vw,2.8rem)] font-bold text-dark text-shadow mb-2 text-center">
+                        <span class="text-primary">xianghua</span>.net.cn
+                    </h1>
+                    <p class="text-secondary text-[clamp(1rem,2vw,1.2rem)] max-w-md text-center animate-bounce-subtle">
+                        探索更多可能 · 分享生活点滴
+                    </p>
                 </div>
             </div>
         </header>
@@ -138,7 +179,7 @@
             <!-- 视频展示区 -->
             <section class="mb-10 scroll-reveal">
                 <div class="fixed-width">
-                    <div class="bg-white rounded-2xl shadow-xl overflow-hidden transform transition-all duration-500 hover:shadow-2xl hover:scale-[1.01]">
+                    <div class="bg-white rounded-2xl shadow-xl overflow-hidden transform transition-all duration-500 hover:shadow-2xl hover:scale-[1.01] relative group">
                         <div class="aspect-video w-full">
                             <video id="main-video" 
                                    class="w-full h-full object-cover"
@@ -148,6 +189,10 @@
                                 您的浏览器不支持HTML5视频播放。
                             </video>
                         </div>
+                        <div class="absolute inset-0 video-overlay opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+                        <button id="video-control" class="absolute bottom-4 right-4 bg-white/80 hover:bg-white text-primary p-2 rounded-full shadow-md transition-all duration-300 backdrop-blur-sm opacity-0 group-hover:opacity-100">
+                            <i class="fa fa-pause" id="video-icon"></i>
+                        </button>
                     </div>
                 </div>
             </section>
@@ -231,13 +276,13 @@
                 </div>
             </section>
 
-            <!-- 音乐播放区 -->
+         <!-- 音乐播放区 -->
             <section class="mb-10">
                 <div class="fixed-width space-y-6">
                     <!-- 新歌榜 -->
                     <div class="bg-white/90 backdrop-blur-sm rounded-xl shadow-md p-6 border border-white/50 transform transition-all duration-300 hover:shadow-lg scroll-reveal">
                         <h3 class="text-xl font-semibold text-dark mb-4 flex items-center">
-                            <span class="mr-2 text-primary animate-pulse">🎶</span> 影 音 试 听（新歌榜）
+                            <span class="mr-2 text-primary animate-pulse">🎶</span>  听 一 听（新歌榜）
                         </h3>
                         <div class="w-full">
                             <meting-js server="netease" type="playlist" id="3779629"></meting-js>
@@ -247,7 +292,7 @@
                     <!-- 飙升榜 -->
                     <div class="bg-white/90 backdrop-blur-sm rounded-xl shadow-md p-6 border border-white/50 transform transition-all duration-300 hover:shadow-lg scroll-reveal" style="animation-delay: 0.2s">
                         <h3 class="text-xl font-semibold text-dark mb-4 flex items-center">
-                            <span class="mr-2 text-primary animate-pulse">🎶</span> 影 音 试 听（飙升榜）
+                            <span class="mr-2 text-primary animate-pulse">🎶</span> 听 一 听（飙升榜）
                         </h3>
                         <div class="w-full">
                             <meting-js server="netease" type="playlist" id="19723756"></meting-js>
@@ -257,7 +302,7 @@
                     <!-- 热歌榜 -->
                     <div class="bg-white/90 backdrop-blur-sm rounded-xl shadow-md p-6 border border-white/50 transform transition-all duration-300 hover:shadow-lg scroll-reveal" style="animation-delay: 0.4s">
                         <h3 class="text-xl font-semibold text-dark mb-4 flex items-center">
-                            <span class="mr-2 text-primary animate-pulse">🎶</span> 影 音 试 听（热歌榜）
+                            <span class="mr-2 text-primary animate-pulse">🎶</span> 听 一 听（热歌榜）
                         </h3>
                         <div class="w-full">
                             <meting-js server="netease" type="playlist" id="3778678"></meting-js>
@@ -266,6 +311,8 @@
                 </div>
             </section>
 
+     
+
             <!-- 温馨提示 -->
             <section class="mb-10 scroll-reveal">
                 <div class="fixed-width">
@@ -273,12 +320,27 @@
                         <h3 class="text-xl font-semibold text-dark mb-4 flex items-center">
                             <span class="mr-2 text-primary">👉</span> 溫 馨 提 示
                         </h3>
-                        <ul class="space-y-3">
-                            <li class="transform transition-all duration-200 hover:translate-x-1">* 推荐使用微软(Edge)浏览器访问本站，Edge速度更快，iPhone建议使用手机自带Safria浏览器访问。</li>
-                            <li class="transform transition-all duration-200 hover:translate-x-1">* 如果您记不住本站域名，请收藏该页地址，收藏并分享给好朋友。</li>
-                            <li class="text-sm text-dark transform transition-all duration-200 hover:translate-x-1">1、使用电脑的用户，请按键盘上的CTRL+D进行收藏</li>
-                            <li class="text-sm text-dark transform transition-all duration-200 hover:translate-x-1">2、苹果手机用户在浏览器点击<i class="fa fa-share-alt text-primary"></i>，然后添加到个人收藏或主屏幕。</li>
-                            <li class="text-sm text-dark transform transition-all duration-200 hover:translate-x-1">3、安卓手机用户点击<i class="fa fa-android text-primary"></i>，或者打开浏览器设置，添加到书签或主屏幕。</li>
+                        <ul class="space-y-4 text-secondary">
+                            <li class="transform transition-all duration-200 hover:translate-x-1">
+                                <i class="fa fa-info-circle text-primary mr-2"></i>
+                                推荐使用微软(Edge)浏览器访问本站，Edge速度更快，iPhone建议使用手机自带Safria浏览器访问。
+                            </li>
+                            <li class="transform transition-all duration-200 hover:translate-x-1">
+                                <i class="fa fa-star text-primary mr-2"></i>
+                                如果您记不住本站域名，请收藏该页地址，收藏并分享给好朋友。
+                            </li>
+                            <li class="pl-6 text-sm text-dark transform transition-all duration-200 hover:translate-x-1">
+                                <i class="fa fa-desktop text-primary mr-2"></i>
+                                电脑用户：按键盘上的 <kbd class="px-2 py-1 bg-gray-100 rounded text-dark text-xs">CTRL+D</kbd> 进行收藏
+                            </li>
+                            <li class="pl-6 text-sm text-dark transform transition-all duration-200 hover:translate-x-1">
+                                <i class="fa fa-apple text-primary mr-2"></i>
+                                苹果手机用户：点击 <i class="fa fa-share-alt text-primary"></i>，然后添加到个人收藏或主屏幕
+                            </li>
+                            <li class="pl-6 text-sm text-dark transform transition-all duration-200 hover:translate-x-1">
+                                <i class="fa fa-android text-primary mr-2"></i>
+                                安卓手机用户：点击浏览器设置，添加到书签或主屏幕
+                            </li>
                         </ul>
                     </div>
                 </div>
@@ -292,27 +354,63 @@
                         <h3 class="text-xl font-semibold text-dark mb-4 flex items-center">
                             <span class="mr-2 text-primary">📧</span> 联 系
                         </h3>
-                        <ul class="text-left">
-                            <li class="mb-2 transform transition-all duration-300 hover:scale-105">邮箱：<a href="mailto:xh@xianghua.net.cn" class="text-primary hover:underline">xh@xianghua.net.cn</a></li>
+                        <ul class="text-left space-y-3">
+                            <li class="mb-2 transform transition-all duration-300 hover:scale-105">
+                                <i class="fa fa-envelope text-primary mr-2"></i>
+                                邮箱：<a href="mailto:xh@xianghua.net.cn" class="text-primary link-underline font-medium">xh@xianghua.net.cn</a>
+                            </li>
                         </ul>
                     </div>
-                    
-                   
+                </div>
             </section>
         </main>
 
         <!-- 页脚 -->
         <footer class="bg-dark/90 text-white py-6 backdrop-blur-sm scroll-reveal">
             <div class="fixed-width text-center">
-                <p>&copy; 2012-Present xianghua.net.cn</p>
+                <div class="flex justify-center space-x-6 mb-4">
+                    <a href="#" class="text-white/70 hover:text-primary transition-colors duration-300">
+                        <i class="fa fa-weibo text-xl"></i>
+                    </a>
+                    <a href="#" class="text-white/70 hover:text-primary transition-colors duration-300">
+                        <i class="fa fa-wechat text-xl"></i>
+                    </a>
+                    <a href="#" class="text-white/70 hover:text-primary transition-colors duration-300">
+                        <i class="fa fa-github text-xl"></i>
+                    </a>
+                </div>
+                <p class="text-white/70 text-sm">&copy; 2012-Present xianghua.net.cn | 探索更多可能 </p>
             </div>
         </footer>
     </div>
+
+    <!-- 回到顶部按钮 -->
+    <button id="back-to-top" class="fixed bottom-6 right-6 bg-primary text-white p-3 rounded-full shadow-lg opacity-0 invisible transition-all duration-300 hover:bg-primaryDark focus:outline-none z-50">
+        <i class="fa fa-arrow-up"></i>
+    </button>
 
     <!-- 滚动动画脚本 -->
     <script>
         // 监听滚动，为进入视口的元素添加动画
         document.addEventListener('DOMContentLoaded', function() {
+            // 视频控制功能
+            const video = document.getElementById('main-video');
+            const videoControl = document.getElementById('video-control');
+            const videoIcon = document.getElementById('video-icon');
+            
+            videoControl.addEventListener('click', function() {
+                if (video.paused) {
+                    video.play();
+                    videoIcon.classList.remove('fa-play');
+                    videoIcon.classList.add('fa-pause');
+                } else {
+                    video.pause();
+                    videoIcon.classList.remove('fa-pause');
+                    videoIcon.classList.add('fa-play');
+                }
+            });
+
+            // 滚动显示动画
             const observerOptions = {
                 root: null,
                 rootMargin: '0px',
@@ -332,14 +430,40 @@
             document.querySelectorAll('.scroll-reveal').forEach(el => {
                 observer.observe(el);
             });
+
+            // 回到顶部按钮
+            const backToTopButton = document.getElementById('back-to-top');
+            
+            window.addEventListener('scroll', () => {
+                if (window.pageYOffset > 300) {
+                    backToTopButton.classList.remove('opacity-0', 'invisible');
+                    backToTopButton.classList.add('opacity-100', 'visible');
+                } else {
+                    backToTopButton.classList.remove('opacity-100', 'visible');
+                    backToTopButton.classList.add('opacity-0', 'invisible');
+                }
+            });
+            
+            backToTopButton.addEventListener('click', () => {
+                window.scrollTo({
+                    top: 0,
+                    behavior: 'smooth'
+                });
+            });
+
+            // 平滑滚动所有锚点链接
+            document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+                anchor.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    const targetId = this.getAttribute('href');
+                    if (targetId !== '#') {
+                        document.querySelector(targetId).scrollIntoView({
+                            behavior: 'smooth'
+                        });
+                    }
+                });
+            });
         });
     </script>
-
-    <!-- 外部脚本 -->
-    <script src="https://xianghuanetcn.oss-cn-shenzhen.aliyuncs.com/web/xianghua.net.cn/glightbox.min.js"></script>
-    <script src="https://xianghuanetcn.oss-cn-shenzhen.aliyuncs.com/web/xianghua.net.cn/main.js"></script>
-    <script src="https://xianghuanetcn.oss-cn-shenzhen.aliyuncs.com/web/twikoo.xianghua.net.cn/twikoo.all.min.js"></script>
-    
- 
 </body>
 </html>
