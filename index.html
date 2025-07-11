@@ -289,6 +289,34 @@
                 </div>
             </section>
 
+ <!-- 影 音 试 听 -->
+            <section class="mb-10 ">
+                <div class="fixed-width">
+                    <!-- 影 音 试 听 -->
+                    <div id="mse" class=" rounded-xl "></div>
+<link rel="stylesheet" href="https://unpkg.byted-static.com/xgplayer/3.0.10/dist/index.min.css"/>
+<script charset="utf-8" src="https://unpkg.byted-static.com/xgplayer/3.0.10/dist/index.min.js"></script>
+
+       <script>
+        const config = {
+          "id": "mse",
+          "url": "https://pan.xianghua.net.cn/api/raw/?path=/web/xianghua.net.cn/500001603719169-1-192.mp4",
+          "poster": "https://pan.xianghua.net.cn/api/raw/?path=/web/test/500001603719169-1-19[00_00_07][20240903-154446].png",
+          "playsinline": true,
+          "plugins": [],
+          "autoplay": false,
+          "fluid": true
+
+        }
+        
+        let player = new Player(config)
+        
+      </script>
+                </div>
+            </section>
+
+
+            
          <!-- 音乐播放区 -->
             <section class="mb-10">
                 <div class="fixed-width space-y-6">
