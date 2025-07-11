@@ -143,6 +143,24 @@
         ::-webkit-scrollbar-thumb:hover {
             background: rgba(0, 194, 80, 0.8);
         }
+
+.video-background {
+  position: fixed;
+  /* 取消默认左上角定位，改为右上角 */
+  top: 0;
+  right: 0; 
+  /* 保证视频覆盖全屏 */
+  min-width: 100%;
+  min-height: 100%;
+  width: auto;
+  height: auto;
+  /* 强制视频右对齐（针对视频尺寸小于容器的情况） */
+  object-position: left center;
+  /* 视频内容填充方式（保持比例同时覆盖容器） */
+  object-fit: cover;
+  z-index: -1;
+}
+        
     </style>
 </head>
 
@@ -460,5 +478,10 @@
             });
         });
     </script>
+<video class="video-background" autoplay muted loop>
+  <source src="https://pan.xianghua.net.cn/api/raw/?path=/web/xianghua.net.cn/bj.mp4" type="video/mp4" />
+  Your browser does not support the video tag.
+</video>
+    
 </body>
 </html>
