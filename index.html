@@ -362,7 +362,26 @@
                 </div>
             </section>
 
-     
+      <!-- 视频展示区2 -->
+            <section class="mb-10 scroll-reveal">
+                <div class="fixed-width">
+                    <div class="bg-white rounded-2xl shadow-xl overflow-hidden transform transition-all duration-500 hover:shadow-2xl hover:scale-[1.01] relative group">
+                        <div class="aspect-video w-full">
+                            <video id="main-video" 
+                                   class="w-full h-full object-cover"
+                                   autoplay muted loop playsinline>
+                                <source src="https://consumer.huawei.com/content/dam/huawei-cbg-site/cn/mkt/pdp/huawei-vision/5/videos/sound/huawei-vision-5-sound.mp4" 
+                                        type="video/mp4">
+                                您的浏览器不支持HTML5视频播放。
+                            </video>
+                        </div>
+                        <div class="absolute inset-0 video-overlay opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+                        <button id="video-control" class="absolute bottom-4 right-4 bg-white/80 hover:bg-white text-primary p-2 rounded-full shadow-md transition-all duration-300 backdrop-blur-sm opacity-0 group-hover:opacity-100">
+                            <i class="fa fa-pause" id="video-icon"></i>
+                        </button>
+                    </div>
+                </div>
+            </section>
 
             <!-- 温馨提示 -->
             <section class="mb-10 scroll-reveal">
