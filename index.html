@@ -1,0 +1,644 @@
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>Welcome to xianghua.net.cn</title>
+    <meta name="keywords" content="xianghua.net.cn, 博客, 网盘, 工具, 服务">
+    <meta name="description" content="xianghua.net.cn - 提供博客、网盘、水印工具等多样化服务平台，持续建设中...">
+    <link rel="shortcut icon" href="https://pan.xianghua.net.cn/api/raw/?path=web/xianghua.net.cn/favicon.ico">
+        <link href="https://xianghuanetcn.oss-cn-shenzhen.aliyuncs.com/web/xianghua.net.cn/glightbox.min.css" rel="stylesheet">
+    <!-- 外部资源引入 -->
+    <script src="https://cdn.tailwindcss.com"></script>
+     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"> 
+    <link rel="stylesheet" href="https://xianghuanetcn.oss-cn-shenzhen.aliyuncs.com/web/xianghua.net.cn/aplayer/APlayer.min.css">
+    <script src="https://xianghuanetcn.oss-cn-shenzhen.aliyuncs.com/web/xianghua.net.cn/aplayer/APlayer.min.js"></script>
+    <script src="https://xianghuanetcn.oss-cn-shenzhen.aliyuncs.com/web/xianghua.net.cn/aplayer/Meting.min.js"></script>
+    <!-- 引入xgplayer资源 -->
+    <link rel="stylesheet" href="https://unpkg.byted-static.com/xgplayer/3.0.10/dist/index.min.css"/>
+    <script charset="utf-8" src="https://unpkg.byted-static.com/xgplayer/3.0.10/dist/index.min.js"></script>
+
+    <!-- Tailwind 配置 -->
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: '#00c250',
+                        primaryLight: '#33d170',
+                        primaryDark: '#00a844',
+                        secondary: '#6c757d',
+                        light: '#f8f9fa',
+                        dark: '#343a40',
+                        bgStart: '#e0f7fa',
+                        bgEnd: '#b2ebf2'
+                    },
+                    fontFamily: {
+                        sans: ['-apple-system', 'BlinkMacSystemFont', 'Helvetica Neue', 'PingFang SC', 'Microsoft YaHei', 'sans-serif']
+                    },
+                    animation: {
+                        'float': 'float 6s ease-in-out infinite',
+                        'pulse-slow': 'pulse 4s cubic-bezier(0.4, 0, 0.6, 1) infinite',
+                        'fade-in': 'fadeIn 0.8s ease-out forwards',
+                        'slide-up': 'slideUp 0.6s ease-out forwards',
+                        'slide-in': 'slideIn 0.7s ease-out forwards',
+                        'bounce-subtle': 'bounceSubtle 2s ease-in-out infinite',
+                        'shine': 'shine 1.5s ease-out infinite'
+                    },
+                    keyframes: {
+                        float: {
+                            '0%, 100%': { transform: 'translateY(0)' },
+                            '50%': { transform: 'translateY(-10px)' }
+                        },
+                        fadeIn: {
+                            '0%': { opacity: '0' },
+                            '100%': { opacity: '1' }
+                        },
+                        slideUp: {
+                            '0%': { transform: 'translateY(20px)', opacity: '0' },
+                            '100%': { transform: 'translateY(0)', opacity: '1' }
+                        },
+                        slideIn: {
+                            '0%': { transform: 'translateX(-20px)', opacity: '0' },
+                            '100%': { transform: 'translateX(0)', opacity: '1' }
+                        },
+                        bounceSubtle: {
+                            '0%, 100%': { transform: 'translateY(-2px)' },
+                            '50%': { transform: 'translateY(2px)' }
+                        },
+                        shine: {
+                            '0%': { boxShadow: '0 0 0 0 rgba(0, 194, 80, 0.4)' },
+                            '70%': { boxShadow: '0 0 0 10px rgba(0, 194, 80, 0)' },
+                            '100%': { boxShadow: '0 0 0 0 rgba(0, 194, 80, 0)' }
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    
+    <style type="text/tailwindcss">
+        @layer utilities {
+            .content-auto {
+                content-visibility: auto;
+            }
+            .card-hover {
+                @apply transition-all duration-300 hover:shadow-xl hover:scale-105 hover:bg-white/90;
+            }
+            .fixed-width {
+                width: 1200px;
+                margin-left: auto;
+                margin-right: auto;
+            }
+            @media (max-width: 1200px) {
+                .fixed-width {
+                    width: 100%;
+                    padding-left: 15px;
+                    padding-right: 15px;
+                }
+            }
+            .bg-pattern {
+                background-image: 
+                    radial-gradient(rgba(0, 194, 80, 0.1) 2px, transparent 2px),
+                    radial-gradient(rgba(0, 194, 80, 0.1) 2px, transparent 2px);
+                background-size: 40px 40px;
+                background-position: 0 0, 20px 20px;
+            }
+            .scroll-reveal {
+                opacity: 0;
+                transform: translateY(20px);
+                transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+            }
+            .scroll-reveal.active {
+                opacity: 1;
+                transform: translateY(0);
+            }
+            .text-shadow {
+                text-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            }
+            .video-overlay {
+                background: linear-gradient(to top, rgba(0,0,0,0.2) 0%, transparent 100%);
+            }
+            .link-underline {
+                @apply relative after:absolute after:bottom-0 after:left-0 after:h-[2px] after:w-0 after:bg-primary after:transition-all after:duration-300 hover:after:w-full;
+            }
+        }
+        .bg-gradient {
+            margin: 0;
+            padding: 0;
+            background: url(https://xianghuanetcn.oss-cn-shenzhen.aliyuncs.com/web/xianghua.net.cn/bg.jpg) no-repeat center;
+            background-size: cover;
+            background-attachment: fixed;
+        }
+        /* 自定义滚动条 */
+        ::-webkit-scrollbar {
+            width: 8px;
+            height: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: rgba(255,255,255,0.1);
+            border-radius: 4px;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: rgba(0, 194, 80, 0.5);
+            border-radius: 4px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: rgba(0, 194, 80, 0.8);
+        }
+
+.video-background {
+  position: fixed;
+  /* 取消默认左上角定位，改为右上角 */
+  top: 0;
+  right: 0; 
+  /* 保证视频覆盖全屏 */
+  min-width: 100%;
+  min-height: 100%;
+  width: auto;
+  height: auto;
+  /* 强制视频右对齐（针对视频尺寸小于容器的情况） */
+  object-position: left center;
+  /* 视频内容填充方式（保持比例同时覆盖容器） */
+  object-fit: cover;
+  z-index: -1;
+}
+.field2{width:1200px;height:600px;display:flex;flex-direction:column;align-items:center;justify-content:center;background:#fff;color:#6e00e9;font-size:50px;padding:15px;margin:5px auto;border-radius:6px}
+      .field2.desc ul>li{text-align:left;font-size:14px}
+      @media (max-width:800px){#main{padding:0 5px}
+      .field2{width:100%;padding:15px 0}
+      .field2.desc ul{margin:0 15px}
+      .field2.desc ul>li{text-align:left}
+      }
+
+ .ldh {
+
+background:url(https://consumer.huawei.com/content/dam/huawei-cbg-site/cn/mkt/harmonyos-next/images/hero/harmonyos-next-kv.webp) no-repeat;
+background-size:cover     
+}          
+    </style>
+<script>
+var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "https://hm.baidu.com/hm.js?a458c2eaa44c2271857f1550c844bde9";
+  var s = document.getElementsByTagName("script")[0]; 
+  s.parentNode.insertBefore(hm, s);
+})();
+</script>
+
+    
+</head>
+
+<body class="bg-gradient text-dark antialiased">
+    <!-- 装饰元素 -->
+    <div class="fixed top-0 left-0 w-full h-full overflow-hidden pointer-events-none z-0">
+        <div class="absolute -top-20 -left-20 w-64 h-64 bg-primary/5 rounded-full blur-3xl animate-pulse-slow"></div>
+        <div class="absolute top-1/3 -right-32 w-80 h-80 bg-primary/5 rounded-full blur-3xl animate-pulse-slow" style="animation-delay: 1s"></div>
+        <div class="absolute bottom-0 left-1/4 w-72 h-72 bg-primary/5 rounded-full blur-3xl animate-pulse-slow" style="animation-delay: 2s"></div>
+    </div>
+
+    <div class="min-h-screen flex flex-col relative z-10">
+        <!-- 页面头部 -->
+        <header class="w-full py-8 animate-fade-in">
+            <div class="fixed-width">
+                <div class="flex flex-col items-center">
+                    <div class="brand flex items-center mb-6 animate-float">
+                        <img src="https://xianghuanetcn.oss-cn-shenzhen.aliyuncs.com/web/xianghua.net.cn/895.jpg" 
+                             alt="Logo" 
+                             class="w-36 h-36 md:w-44 md:h-44 rounded-full object-cover shadow-lg border-4 border-white/80 transform transition-all duration-500 hover:border-primary hover:shadow-primary/20">
+                    </div>
+                   
+                </div>
+            </div>
+        </header>
+
+        <!-- 主要内容 -->
+        <main class="flex-grow py-6">
+            <!-- 视频展示区 -->
+            <section class="mb-10 scroll-reveal">
+                <div class="fixed-width">
+                    <div class="bg-white rounded-2xl shadow-xl overflow-hidden transform transition-all duration-500 hover:shadow-2xl hover:scale-[1.01] relative group">
+                        <div class="aspect-video w-full">
+                            <video id="main-video" 
+                                   class="w-full h-full object-cover"
+                                   autoplay muted loop playsinline>
+                                <source src="https://consumer.huawei.com/content/dam/huawei-cbg-site/cn/mkt/pdp/phones/pura80-pro-plus/video/design/design-camera-light.mp4" 
+                                        type="video/mp4">
+                                您的浏览器不支持HTML5视频播放。
+                            </video>
+                        </div>
+                        <div class="absolute inset-0 video-overlay opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+                        <button id="video-control" class="absolute bottom-4 right-4 bg-white/80 hover:bg-white text-primary p-2 rounded-full shadow-md transition-all duration-300 backdrop-blur-sm opacity-0 group-hover:opacity-100">
+                            <i class="fa fa-pause" id="video-icon"></i>
+                        </button>
+                    </div>
+                </div>
+            </section>
+ <section class="mb-10 scroll-reveal">
+<div class="ldh field2">
+ 
+ <h1>HarmonyOS NEXT</h1>
+ <a href="https://consumer.huawei.com/content/dam/huawei-cbg-site/cn/mkt/harmonyos-next/videos/1025/harmonyos-next-pv-video-popup.mp4" class="glightbox btn-watch-video">
+<i class="bi bi-play-circle"></i><img src="https://consumer.huawei.com/content/dam/huawei-cbg-site/cn/mkt/harmonyos-computer/harmonyos-5/imgs/harmony-os-5-pv-play.svg" width="60" height="60" ></a>
+      </div>
+</section>
+            <!-- 建设提示与服务区 -->
+            <section class="mb-10 scroll-reveal">
+                <div class="fixed-width">
+                    <div class="bg-white/30 backdrop-blur-sm rounded-xl shadow-md p-6 text-center border border-white/50 transform transition-all duration-300 hover:shadow-lg">
+                        <h2 class="text-2xl font-bold text-primary mb-6 flex items-center justify-center animate-pulse">
+                            <span class="mr-2">✈</span> 正在建设 <span class="ml-2">✈</span>
+                        </h2>
+                        <h3 class="text-xl font-semibold text-dark mb-8">可使用以下服务</h3>
+                        
+                        <!-- 服务卡片网格 -->
+                        <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
+                            <!-- 博客 -->
+                            <a href="https://blog.xianghua.net.cn" target="_blank" 
+                               class="service-card bg-white/95 backdrop-blur-sm rounded-xl p-6 shadow-md flex flex-col items-center justify-center card-hover border border-gray-100">
+                                <i class="fa fa-pencil-square-o text-3xl text-primary mb-3 transform transition-transform duration-300 hover:rotate-12 hover:text-primary/80"></i>
+                                <h3 class="font-semibold text-dark">博客</h3>
+                                <p class="text-sm mt-2">分享技术与生活的点滴</p>
+                            </a>
+                            
+                            <!-- 网盘 -->
+                            <a href="https://pan.xianghua.net.cn" target="_blank" 
+                               class="service-card bg-white/95 backdrop-blur-sm rounded-xl p-6 shadow-md flex flex-col items-center justify-center card-hover border border-gray-100">
+                                <i class="fa fa-cloud text-3xl text-primary mb-3 transform transition-transform duration-300 hover:scale-110 hover:text-primary/80"></i>
+                                <h3 class="font-semibold text-dark">网盘</h3>
+                                <p class="text-sm mt-2">安全便捷的文件存储</p>
+                            </a>
+                            
+                            <!-- 白板 -->
+                            <a href="https://baiban.xianghua.net.cn" target="_blank" 
+                               class="service-card bg-white/95 backdrop-blur-sm rounded-xl p-6 shadow-md flex flex-col items-center justify-center card-hover border border-gray-100">
+                                <i class="fa fa-paint-brush text-3xl text-primary mb-3 transform transition-transform duration-300 hover:rotate-[-12deg] hover:text-primary/80"></i>
+                                <h3 class="font-semibold text-dark">白板</h3>
+                                <p class="text-sm mt-2">自由创作与协作的空间</p>
+                            </a>
+                            
+                            <!-- 游戏 -->
+                            <a href="https://tetris.xianghua.net.cn" target="_blank" 
+                               class="service-card bg-white/95 backdrop-blur-sm rounded-xl p-6 shadow-md flex flex-col items-center justify-center card-hover border border-gray-100">
+                                <i class="fa fa-gamepad text-3xl text-primary mb-3 transform transition-transform duration-300 hover:scale-110 hover:text-primary/80"></i>
+                                <h3 class="font-semibold text-dark">游戏</h3>
+                                <p class="text-sm mt-2">休闲娱乐，放松心情</p>
+                            </a>
+                            
+                            <!-- 便捷水印 -->
+                            <a href="https://sy.xianghua.net.cn" target="_blank" 
+                               class="service-card bg-white/95 backdrop-blur-sm rounded-xl p-6 shadow-md flex flex-col items-center justify-center card-hover border border-gray-100">
+                                <i class="fa fa-certificate text-3xl text-primary mb-3 transform transition-transform duration-300 hover:rotate-12 hover:text-primary/80"></i>
+                                <h3 class="font-semibold text-dark">便捷水印</h3>
+                                <p class="text-sm mt-2">快速添加专业水印</p>
+                            </a>
+                            
+                            <!-- 制作头像 -->
+                            <a href="https://avatar.xianghua.net.cn" target="_blank" 
+                               class="service-card bg-white/95 backdrop-blur-sm rounded-xl p-6 shadow-md flex flex-col items-center justify-center card-hover border border-gray-100">
+                                <i class="fa fa-user text-3xl text-primary mb-3 transform transition-transform duration-300 hover:scale-110 hover:text-primary/80"></i>
+                                <h3 class="font-semibold text-dark">制作头像</h3>
+                                <p class="text-sm mt-2">创建个性化头像</p>
+                            </a>
+                            
+                            <!-- 菜谱 -->
+                            <a href="https://cook.xianghua.net.cn" target="_blank" 
+                               class="service-card bg-white/95 backdrop-blur-sm rounded-xl p-6 shadow-md flex flex-col items-center justify-center card-hover border border-gray-100">
+                                <i class="fa fa-cutlery text-3xl text-primary mb-3 transform transition-transform duration-300 hover:rotate-[-12deg] hover:text-primary/80"></i>
+                                <h3 class="font-semibold text-dark">菜谱</h3>
+                                <p class="text-sm mt-2">探索美食制作的乐趣</p>
+                            </a>
+                            
+                            <!-- 邮箱 -->
+                            <a href="https://mail.xianghua.net.cn" target="_blank" 
+                               class="service-card bg-white/95 backdrop-blur-sm rounded-xl p-6 shadow-md flex flex-col items-center justify-center card-hover border border-gray-100">
+                                <i class="fa fa-envelope-o text-3xl text-primary mb-3 transform transition-transform duration-300 hover:scale-110 hover:text-primary/80"></i>
+                                <h3 class="font-semibold text-dark">邮箱</h3>
+                                <p class="text-sm mt-2">高效的邮件沟通工具</p>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+ 
+
+
+
+<!-- 影 音 试 听 1-->
+            <section class="mb-10 ">
+                <div class="fixed-width">
+                   <div id="player1" class="rounded-xl"></div>
+    <script>
+        // 第一个播放器配置
+        const config1 = {
+            "id": "player1",  // 唯一ID
+           "url": "https://pan.xianghua.net.cn/api/raw/?path=/web/xianghua.net.cn/1.mp4",
+            "poster": "https://pan.xianghua.net.cn/api/raw/?path=/web/xianghua.net.cn/1.jpg",
+            "playsinline": true,
+            "plugins": [],
+            "autoplay": false,
+            "fluid": true
+        };
+        const player1 = new Player(config1); 
+    </script>
+                </div>
+            </section>
+
+<!-- 影 音 试 听 2-->
+            <section class="mb-10 ">
+                <div class="fixed-width">          
+                   <div id="player2" class="rounded-xl"></div>
+    <script> 
+        // 第二个播放器配置
+        const config2 = {
+            "id": "player2",  // 唯一ID
+           "url": "https://pan.xianghua.net.cn/api/raw/?path=/web/xianghua.net.cn/2.mp4",
+            "poster": "https://pan.xianghua.net.cn/api/raw/?path=/web/xianghua.net.cn/2.jpg",  
+            "playsinline": true,
+            "plugins": [],
+            "autoplay": false,
+            "fluid": true
+        };
+        const player2 = new Player(config2);
+    </script>
+                </div>
+            </section>
+            
+<!-- 影 音 试 听 3-->
+            <section class="mb-10 ">
+                <div class="fixed-width">
+                   <div id="player3" class="rounded-xl"></div>
+    <script>
+        // 第三个播放器配置
+        const config3 = {
+            "id": "player3",  // 唯一ID
+           "url": "https://pan.xianghua.net.cn/api/raw/?path=/web/xianghua.net.cn/unstoppable.mp4",
+            "poster": "https://pan.xianghua.net.cn/api/raw/?path=/web/xianghua.net.cn/unstoppable.jpg",  
+            "playsinline": true,
+            "plugins": [],
+            "autoplay": false,
+            "fluid": true
+        };
+        const player3 = new Player(config3);
+    </script>
+                </div>
+            </section>
+
+
+         <!-- 音乐播放区 -->
+            <section class="mb-10">
+                <div class="fixed-width space-y-6">
+                    <!-- 新歌榜 -->
+                    <div class="bg-white/90 backdrop-blur-sm rounded-xl shadow-md p-6 border border-white/50 transform transition-all duration-300 hover:shadow-lg scroll-reveal">
+                        <h3 class="text-xl font-semibold text-dark mb-4 flex items-center">
+                            <span class="mr-2 text-primary animate-pulse">🎶</span> 网易云音乐（新歌榜）
+                        </h3>
+                        <div class="w-full">
+                            <meting-js server="netease" type="playlist" id="3779629"></meting-js>
+                        </div>
+                    </div>
+                    
+                    <!-- 飙升榜 -->
+                    <div class="bg-white/90 backdrop-blur-sm rounded-xl shadow-md p-6 border border-white/50 transform transition-all duration-300 hover:shadow-lg scroll-reveal" style="animation-delay: 0.2s">
+                        <h3 class="text-xl font-semibold text-dark mb-4 flex items-center">
+                            <span class="mr-2 text-primary animate-pulse">🎶</span> 网易云音乐（飙升榜）
+                        </h3>
+                        <div class="w-full">
+                            <meting-js server="netease" type="playlist" id="19723756"></meting-js>
+                        </div>
+                    </div>
+
+                     <!-- 原创榜 -->
+                    <div class="bg-white/90 backdrop-blur-sm rounded-xl shadow-md p-6 border border-white/50 transform transition-all duration-300 hover:shadow-lg scroll-reveal" style="animation-delay: 0.2s">
+                        <h3 class="text-xl font-semibold text-dark mb-4 flex items-center">
+                            <span class="mr-2 text-primary animate-pulse">🎶</span> 网易云音乐（原创榜）
+                        </h3>
+                        <div class="w-full">
+                            <meting-js server="netease" type="playlist" id="2884035"></meting-js>
+                        </div>
+                    </div>
+                    
+                    <!-- 热歌榜 -->
+                    <div class="bg-white/90 backdrop-blur-sm rounded-xl shadow-md p-6 border border-white/50 transform transition-all duration-300 hover:shadow-lg scroll-reveal" style="animation-delay: 0.4s">
+                        <h3 class="text-xl font-semibold text-dark mb-4 flex items-center">
+                            <span class="mr-2 text-primary animate-pulse">🎶</span> 网易云音乐（热歌榜）
+                        </h3>
+                        <div class="w-full">
+                            <meting-js server="netease" type="playlist" id="3778678"></meting-js>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+      <!-- 视频展示区2 -->
+            <section class="mb-10 scroll-reveal">
+                <div class="fixed-width">
+                    <div class="bg-white rounded-2xl shadow-xl overflow-hidden transform transition-all duration-500 hover:shadow-2xl hover:scale-[1.01] relative group">
+                        <div class="aspect-video w-full">
+                            <video id="main-video" 
+                                   class="w-full h-full object-cover"
+                                   autoplay muted loop playsinline>
+                                <source src="https://consumer.huawei.com/content/dam/huawei-cbg-site/cn/mkt/pdp/huawei-vision/5/videos/sound/huawei-vision-5-sound.mp4" 
+                                        type="video/mp4">
+                                您的浏览器不支持HTML5视频播放。
+                            </video>
+                        </div>
+                        <div class="absolute inset-0 video-overlay opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+                        <button id="video-control" class="absolute bottom-4 right-4 bg-white/80 hover:bg-white text-primary p-2 rounded-full shadow-md transition-all duration-300 backdrop-blur-sm opacity-0 group-hover:opacity-100">
+                            <i class="fa fa-pause" id="video-icon"></i>
+                        </button>
+                    </div>
+                </div>
+            </section>
+
+            <!-- 温馨提示 -->
+            <section class="mb-10 scroll-reveal">
+                <div class="fixed-width">
+                    <div class="bg-white/90 backdrop-blur-sm rounded-xl shadow-md p-6 border border-white/50 transform transition-all duration-300 hover:shadow-lg">
+                        <h3 class="text-xl font-semibold text-dark mb-4 flex items-center">
+                            <span class="mr-2 text-primary">👉</span> 溫 馨 提 示
+                        </h3>
+                        <ul class="space-y-4 text-secondary">
+                            <li class="transform transition-all duration-200 hover:translate-x-1">
+                                <i class="fa fa-info-circle text-primary mr-2"></i>
+                                推荐使用微软(Edge)浏览器访问本站，Edge速度更快，iPhone建议使用手机自带Safria浏览器访问。
+                            </li>
+                            <li class="transform transition-all duration-200 hover:translate-x-1">
+                                <i class="fa fa-star text-primary mr-2"></i>
+                                如果您记不住本站域名，请收藏该页地址，收藏并分享给好朋友。
+                            </li>
+                            <li class="pl-6 text-sm text-dark transform transition-all duration-200 hover:translate-x-1">
+                                <i class="fa fa-desktop text-primary mr-2"></i>
+                                电脑用户：按键盘上的 <kbd class="px-2 py-1 bg-gray-100 rounded text-dark text-xs">CTRL+D</kbd> 进行收藏
+                            </li>
+                            <li class="pl-6 text-sm text-dark transform transition-all duration-200 hover:translate-x-1">
+                                <i class="fa fa-apple text-primary mr-2"></i>
+                                苹果手机用户：点击 <i class="fa fa-share-alt text-primary"></i>，然后添加到个人收藏或主屏幕
+                            </li>
+                            <li class="pl-6 text-sm text-dark transform transition-all duration-200 hover:translate-x-1">
+                                <i class="fa fa-android text-primary mr-2"></i>
+                                安卓手机用户：点击浏览器设置，添加到书签或主屏幕
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </section>
+
+            <!-- 联系与反馈 -->
+            <section class="mb-10">
+                <div class="fixed-width">
+                    <!-- 联系信息 -->
+                    <div class="bg-white/90 backdrop-blur-sm rounded-xl shadow-md p-6 mb-6 border border-white/50 transform transition-all duration-300 hover:shadow-lg scroll-reveal">
+                        <h3 class="text-xl font-semibold text-dark mb-4 flex items-center">
+                            <span class="mr-2 text-primary">📧</span> 联 系
+                        </h3>
+                        <ul class="text-left space-y-3">
+                            <li class="mb-2 transform transition-all duration-200 hover:scale-80">
+                                <i class="fa fa-envelope text-primary mr-2"></i>
+                                邮箱：<a href="mailto:xianghua@outlook.com" class="text-primary link-underline font-medium">xianghua@outlook.com</a>
+                            </li>
+                                
+                           
+                        </ul>
+                    </div>
+                </div>
+            </section>
+
+ <!-- 联系与反馈 -->
+            <section class="mb-10">
+                <div class="fixed-width">
+                    <!-- 反馈信息 -->
+                    <div class="bg-white/90 backdrop-blur-sm rounded-xl shadow-md p-6 mb-6 border border-white/50 transform transition-all duration-300 hover:shadow-lg scroll-reveal">
+                        <h4 class="text-xl font-semibold text-dark mb-4 flex items-center"><span class="mr-2 text-primary">✏️</span> 反 馈  </h4>         
+<div id="tcomment"></div>
+<script src="https://xianghuanetcn.oss-cn-shenzhen.aliyuncs.com/web/twikoo.xianghua.net.cn/twikoo.all.min.js"></script>
+<script>
+twikoo.init({
+  envId: 'https://twikoo.xianghua.net.cn/', // 腾讯云环境填 envId；Vercel 环境填地址（https://xxx.vercel.app）
+  el: '#tcomment', // 容器元素
+  // region: 'ap-guangzhou', // 环境地域，默认为 ap-shanghai，腾讯云环境填 ap-shanghai 或 ap-guangzhou；Vercel 环境不填
+  // path: location.pathname, // 用于区分不同文章的自定义 js 路径，如果您的文章路径不是 location.pathname，需传此参数
+  // lang: 'zh-CN', // 用于手动设定评论区语言，支持的语言列表 https://github.com/imaegoo/twikoo/blob/main/src/client/utils/i18n/index.js
+})
+</script>  </div> </div>
+            </section>
+
+        </main>
+
+        <!-- 页脚 -->
+        <footer class="bg-drak/30 fixed-width backdrop-blur-sm rounded-xl shadow-md p-6 mb-6  transform transition-all duration-300 hover:shadow-lg scroll-reveal">
+         <div class="fixed-width text-center">
+             <!-- 页脚     <div class="flex justify-center space-x-6 mb-4">
+                    <a href="#" class="text-white/70 hover:text-primary transition-colors duration-300">
+                        <i class="fa fa-weibo text-xl"></i>
+                    </a>
+                    <a href="#" class="text-white/70 hover:text-primary transition-colors duration-300">
+                        <i class="fa fa-wechat text-xl"></i>
+                    </a>
+                    <a href="#" class="text-white/70 hover:text-primary transition-colors duration-300">
+                        <i class="fa fa-github text-xl"></i>
+                    </a>
+                </div>
+            -->
+                <p class="text-white/70 text-sm">&copy; 2012-Present xianghua.net.cn | Make the strong even stronger | 
+                                update：2025.8.21</p>
+            </div>
+        </footer>
+    </div>
+
+    <!-- 回到顶部按钮 -->
+    <button id="back-to-top" class="fixed bottom-6 right-6 bg-primary text-white p-3 rounded-full shadow-lg opacity-0 invisible transition-all duration-300 hover:bg-primaryDark focus:outline-none z-50">
+        <i class="fa fa-arrow-up"></i>
+    </button>
+
+    <!-- 滚动动画脚本 -->
+    <script>
+        // 监听滚动，为进入视口的元素添加动画
+        document.addEventListener('DOMContentLoaded', function() {
+            // 视频控制功能
+            const video = document.getElementById('main-video');
+            const videoControl = document.getElementById('video-control');
+            const videoIcon = document.getElementById('video-icon');
+            
+            videoControl.addEventListener('click', function() {
+                if (video.paused) {
+                    video.play();
+                    videoIcon.classList.remove('fa-play');
+                    videoIcon.classList.add('fa-pause');
+                } else {
+                    video.pause();
+                    videoIcon.classList.remove('fa-pause');
+                    videoIcon.classList.add('fa-play');
+                }
+            });
+
+            // 滚动显示动画
+            const observerOptions = {
+                root: null,
+                rootMargin: '0px',
+                threshold: 0.1
+            };
+
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('active');
+                        observer.unobserve(entry.target);
+                    }
+                });
+            }, observerOptions);
+
+            // 监听所有带scroll-reveal类的元素
+            document.querySelectorAll('.scroll-reveal').forEach(el => {
+                observer.observe(el);
+            });
+
+            // 回到顶部按钮
+            const backToTopButton = document.getElementById('back-to-top');
+            
+            window.addEventListener('scroll', () => {
+                if (window.pageYOffset > 300) {
+                    backToTopButton.classList.remove('opacity-0', 'invisible');
+                    backToTopButton.classList.add('opacity-100', 'visible');
+                } else {
+                    backToTopButton.classList.remove('opacity-100', 'visible');
+                    backToTopButton.classList.add('opacity-0', 'invisible');
+                }
+            });
+            
+            backToTopButton.addEventListener('click', () => {
+                window.scrollTo({
+                    top: 0,
+                    behavior: 'smooth'
+                });
+            });
+
+            // 平滑滚动所有锚点链接
+            document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+                anchor.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    const targetId = this.getAttribute('href');
+                    if (targetId !== '#') {
+                        document.querySelector(targetId).scrollIntoView({
+                            behavior: 'smooth'
+                        });
+                    }
+                });
+            });
+        });
+    </script>
+
+      <!-- 
+<video class="video-background" autoplay muted loop>
+  <source src="https://pan.xianghua.net.cn/api/raw/?path=/web/xianghua.net.cn/bj.mp4" type="video/mp4" />
+  Your browser does not support the video tag.
+</video>
+     -->
+ <script src="https://xianghuanetcn.oss-cn-shenzhen.aliyuncs.com/web/xianghua.net.cn/glightbox.min.js"></script>
+
+ <script src="https://xianghuanetcn.oss-cn-shenzhen.aliyuncs.com/web/xianghua.net.cn/main.js"></script>
+
+</body>
+</html>
